@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="P:/Application/Available/OTHER/Ancestry_Job_Information/current version/Ancestry_Job_Infomation.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Ancestry_General_Process/JOB_INFO_P_CURRENT.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="false" manifestLocation="/Ancestry_General_Process/Job/JOB_INFO_MANIFEST.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/Ancestry_General_Process/.project"/>
+        <file path="/Ancestry_General_Process/.classpath"/>
+        <javaElement handleIdentifier="=Ancestry_General_Process/src"/>
+        <file path="/Ancestry_General_Process/PrdLog.txt"/>
+        <folder path="/Ancestry_General_Process/config"/>
+        <file path="/Ancestry_General_Process/MANIFEST.MF"/>
+        <file path="/Ancestry_General_Process/P_Test.jardesc"/>
+        <file path="/Ancestry_General_Process/JOB_INFO_P_TEST.jardesc"/>
+        <file path="/Ancestry_General_Process/P_Current.jardesc"/>
+        <folder path="/Ancestry_General_Process/Job"/>
+    </selectedElements>
+</jardesc>

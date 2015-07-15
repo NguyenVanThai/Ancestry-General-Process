@@ -1,0 +1,917 @@
+package com.digitexx.ancestry.gui;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Properties;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+import javax.swing.border.TitledBorder;
+
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
+import com.digitexx.ancestry.bean.Tbl_Projects;
+import com.digitexx.ancestry.conts.UserRole;
+import com.digitexx.ancestry.dao.DaoLogin;
+import com.digitexx.ancestry.db.ConnectionDB;
+import com.digitexx.ancestry.finals.admin.FrmAdminFinal;
+import com.digitexx.ancestry.util.AppUtility;
+import com.digitexx.ancestry.util.Configuration;
+import com.digitexx.lib.databaseInfo;
+
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
+public class FrmStep extends javax.swing.JFrame implements ActionListener
+{
+	private static final long serialVersionUID = 1L;
+	
+	{
+		System.setProperty("com.sun.media.jai.disableMediaLib", "true");
+	}
+	{
+		try {
+			AppUtility.setLookAndField(0);
+		} catch (Exception e) {
+			e.printStackTrace();			
+		}
+	}
+	
+	private JPanel panelMain;
+	private JComboBox comboboxProject;
+	private ButtonGroup buttonGroup;
+	private JButton buttonEnter;
+	private JPanel panelQMD;
+	private JRadioButton radioCopyRework;
+	private JRadioButton radioRunAutoDeletData;
+	private JRadioButton radioImportLookup;
+	private JRadioButton radioUpperLowerData;
+	private JRadioButton radioAssignTypeProofReworkForUser;
+	private JRadioButton radioCheckAnrede;
+	private JRadioButton radioCheckExport;
+	private JRadioButton radioConfigFieldNameList;
+	private JRadioButton radioImportLookupQMD;
+	private JRadioButton radioConvertImages;
+	private JRadioButton radioImportExportLookup;
+	private JRadioButton radioInfoGroupUser;
+	private JRadioButton radioMoveDataDPCAndDigiSoft;
+	private JRadioButton radioAssignNotSaveTime;
+	private JRadioButton radioAssignJobSaveTime;
+	private JRadioButton radioSetPriorityGetJob;
+	private JRadioButton radioAdminFinal;
+	private JRadioButton radioReturnJobWithField;
+	private JRadioButton radioQmdAnalyze;
+	private JRadioButton radioCompareForQMD;
+	private JPanel panelDPC;
+	private JRadioButton radioMoveDataRework;
+	private JPanel panelSDD;
+	private JRadioButton radioSupportMoveDataLookup;
+	private JRadioButton radioAdddField;
+	private JRadioButton radioQMDTranferDataDPC;
+	private JRadioButton radioFocusMulti;
+	private JCheckBox checkboxGetAll;
+	private JRadioButton radioDrawFocus;
+	private JRadioButton radioAnlyzeRework;
+	private JRadioButton radioImportFeedback;
+	private JLabel jLabel1;
+	
+	private long projectId;
+	private String userName;
+	private String projectName;
+	private byte[] userRoles;
+	private LinkedHashMap<String, Tbl_Projects> mapProject; 
+	private DaoLogin daoLogin = new DaoLogin();
+	private Tbl_Projects project;
+	
+	public FrmStep() {
+		super();
+		initGUI();
+        initData();
+	}
+	
+	public FrmStep( String userName ,String projectName, long projectId, byte[] userRoles) {
+		super();
+		this.projectName = projectName;
+		this.projectId = projectId;
+		this.userName = userName;
+		this.userRoles = userRoles;
+		initGUI();
+        AppUtility.centerFrame(this);
+        initData();
+	}
+	
+	private void initGUI() {
+		try {
+			setTitle("Ancestry General Process");
+			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+			BorderLayout thisLayout = new BorderLayout();
+			getContentPane().setLayout(thisLayout);
+			{
+				panelMain = new JPanel();
+				AnchorLayout panelMainLayout2 = new AnchorLayout();
+				getContentPane().add(panelMain, BorderLayout.CENTER);
+				panelMain.setLayout(panelMainLayout2);
+				panelMain.setPreferredSize(new java.awt.Dimension(656, 504));
+				{
+					comboboxProject = new JComboBox();
+					panelMain.add(getPanelDPC(), new AnchorConstraint(307, 476, 986, 10, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					panelMain.add(comboboxProject, new AnchorConstraint(147, 1000, 293, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					comboboxProject.setBorder(BorderFactory.createTitledBorder(null, "Projects", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial",1,14), new java.awt.Color(255,0,0)));
+					comboboxProject.setFont(new java.awt.Font("Tahoma",1,16));
+					comboboxProject.setPreferredSize(new java.awt.Dimension(734, 83));
+				}
+				{
+					jLabel1 = new JLabel();
+					panelMain.add(jLabel1, new AnchorConstraint(16, 740, 136, 214, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jLabel1.setText("Ancestry General Process");
+					jLabel1.setFont(new java.awt.Font("Arial",1,24));
+					jLabel1.setPreferredSize(new java.awt.Dimension(386, 68));
+					jLabel1.setForeground(new java.awt.Color(0,0,255));
+				}
+			}
+			pack();
+			this.setSize(742, 683);
+			this.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent evt) {
+					System.exit(0);
+				}
+			});
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private ButtonGroup getButtonGroup() {
+		if(buttonGroup == null) {
+			buttonGroup = new ButtonGroup();
+		}
+		return buttonGroup;
+	}
+	
+	private JButton getJButton1() {
+		if(buttonEnter == null) {
+			buttonEnter = new JButton();
+			buttonEnter.setText("Enter");
+			buttonEnter.setFont(new java.awt.Font("Tahoma",1,18));
+			buttonEnter.setPreferredSize(new java.awt.Dimension(160, 45));
+			buttonEnter.addActionListener(this);
+		}
+		return buttonEnter;
+	}
+	
+	
+	private JCheckBox getCheckboxGetAll() {
+		if(checkboxGetAll == null) {
+			checkboxGetAll = new JCheckBox();
+			checkboxGetAll.setText("Get All Projects");
+			checkboxGetAll.setFont(new java.awt.Font("Tahoma",1,14));
+			checkboxGetAll.setForeground(new java.awt.Color(255,0,0));
+			checkboxGetAll.setPreferredSize(new java.awt.Dimension(154, 26));
+			checkboxGetAll.addActionListener(this);
+		}
+		return checkboxGetAll;
+	}
+	
+	
+	private JRadioButton getRadioFocusMulti() {
+		if(radioFocusMulti == null) {
+			radioFocusMulti = new JRadioButton();
+			radioFocusMulti.setText("Draw Focus Multi Record");
+			radioFocusMulti.setFont(new java.awt.Font("Arial",0,16));
+			radioFocusMulti.setPreferredSize(new java.awt.Dimension(214, 20));
+			getButtonGroup().add(radioFocusMulti);
+		}
+		return radioFocusMulti;
+	}
+
+	private JRadioButton getRadioQMDTranferDataDPC() {
+		if(radioQMDTranferDataDPC == null) {
+			radioQMDTranferDataDPC = new JRadioButton();
+			radioQMDTranferDataDPC.setText("Transfer Data QMD To DPC ( For Ancestry )");
+			radioQMDTranferDataDPC.setFont(new java.awt.Font("Arial",0,16));
+			radioQMDTranferDataDPC.setPreferredSize(new java.awt.Dimension(208, 21));
+			getButtonGroup().add(radioQMDTranferDataDPC);
+		}
+		return radioQMDTranferDataDPC;
+	}
+
+	private JRadioButton getRadioAdddField() {
+		if(radioAdddField == null) {
+			radioAdddField = new JRadioButton();
+			radioAdddField.setText("Add Field ");
+			radioAdddField.setBounds(8, 57, 144, 21);
+			radioAdddField.setFont(new java.awt.Font("Arial",0,14));
+			getButtonGroup().add(radioAdddField);
+		}
+		return radioAdddField;
+	}
+	
+	private JRadioButton getRadioSupportMoveDataLookup() {
+		if(radioSupportMoveDataLookup == null) {
+			radioSupportMoveDataLookup = new JRadioButton();
+			radioSupportMoveDataLookup.setText("Support Move Data Lookup");
+			radioSupportMoveDataLookup.setBounds(8, 26, 150, 21);
+			radioSupportMoveDataLookup.setFont(new java.awt.Font("Arial",0,14));
+			getButtonGroup().add(radioSupportMoveDataLookup);
+		}
+		return radioSupportMoveDataLookup;
+	}
+	
+	private JPanel getPanelSDD() {
+		if(panelSDD == null) {
+			panelSDD = new JPanel();
+			BoxLayout panelSDDLayout = new BoxLayout(panelSDD, javax.swing.BoxLayout.Y_AXIS);
+			panelSDD.setBorder(BorderFactory.createTitledBorder(null, "SDD", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial",1,14), new java.awt.Color(255,0,255)));
+			panelSDD.setLayout(panelSDDLayout);
+			panelSDD.setForeground(new java.awt.Color(255,0,0));
+			panelSDD.setPreferredSize(new java.awt.Dimension(356, 172));
+			panelSDD.add(getRadioSupportMoveDataLookup());
+			panelSDD.add(getRadioAdddField());
+			panelSDD.add(getRadioImportExportLookup());
+			panelSDD.add(getRadioImportLookupQMD());
+			panelSDD.add(getRadioCheckAnrede());
+			panelSDD.add(getRadioUpperLowerData());
+		}
+		return panelSDD;
+	}
+	
+	private JRadioButton getRadioMoveDataRework() {
+		if(radioMoveDataRework == null) {
+			radioMoveDataRework = new JRadioButton();
+			radioMoveDataRework.setText("Move Data Between Proof & Rework");
+			radioMoveDataRework.setPreferredSize(new java.awt.Dimension(186, 18));
+			radioMoveDataRework.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioMoveDataRework);
+		}
+		return radioMoveDataRework;
+	}
+
+	
+	//==============================================================================================================
+	
+	@Override
+	public void actionPerformed(ActionEvent evt) {
+		Object action = evt.getSource();
+		if(action == buttonEnter) {
+			enterSystem();
+		}
+		if(action == checkboxGetAll) 
+		{
+			if(checkboxGetAll.isSelected()) {
+				loadProject(true);
+			}else {
+				loadProject(false);
+			}
+		}
+	}
+	
+	private void initData() 
+	{
+        readConfig();
+        loadProject(false);
+	}
+	
+	//=====================================================================================================================
+	
+	public void readConfig() {
+		try {
+			String classPaths = System.getProperty("java.class.path");
+			String[] arrClassPaths = classPaths.split(";");
+			String file = "";
+			if (arrClassPaths.length > 0) {
+				file = arrClassPaths[0];
+			}
+			file = file + "/config/db.properties";
+			file = file.replace("\\", "/");
+			file = file.replace("/Ancestry_General_Process.jar", "");
+			file = file.replace("/bin", "");
+
+			Properties propertiesConfig = new Properties();
+			propertiesConfig.load(new FileInputStream(file));
+			
+			if(!propertiesConfig.isEmpty())
+			{
+				ConnectionDB.host       = propertiesConfig.getProperty("database");
+				ConnectionDB.condition  = propertiesConfig.getProperty("condition");
+				ConnectionDB.user_login = userName;
+				ConnectionDB.open_load_all = propertiesConfig.getProperty("open_load_all");
+				
+				Configuration.SERVER_DELETE   = propertiesConfig.getProperty("server_delete");
+				Configuration.USER_DELETE     = propertiesConfig.getProperty("user_delete");
+				Configuration.PASSWORD_DELETE = propertiesConfig.getProperty("password_delete");
+				Configuration.FOLDER_DELETE   = propertiesConfig.getProperty("folder_delete");
+				Configuration.FOLDER_COPY     = propertiesConfig.getProperty("folder_copy");
+			}
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+			AppUtility.msgWaring(this,"File not found , check file config again !!");
+		}
+
+	}
+	
+	public void login(String data) {
+		try {
+
+			databaseInfo clip = new databaseInfo();
+			// get clip board
+			clip.processInfo(data);
+			String username = clip.getDPO();
+			String strProjectID = clip.getProjectID().toString();
+
+			if (strProjectID == null)
+				strProjectID = "";
+
+			if ("".equals(strProjectID))
+				projectId = -1;
+			else
+				projectId = Long.parseLong(strProjectID);
+
+			Configuration.ConfigDB(clip);
+			Configuration.ProjectName = "Ancestry General Process";
+			new File(System.getProperty("user.home") + "/"+ Configuration.ProjectName).mkdirs();
+			boolean loginAsPRDAdmin = false;// this.adminRd.isSelected() ;
+			if (projectId == -1 && !loginAsPRDAdmin)
+			{
+				AppUtility.msgInfo(this, "At this time there are no project to work . Please login as PRDAdmin to create new project !!");
+				System.exit(0);
+				return;
+			}
+			new FrmStep(username,  projectName,  projectId,  userRoles).setVisible(true);
+			
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void loadProject(boolean isGetAll) {
+		if(!isGetAll) {
+			mapProject = daoLogin.getListProjectAncestryPMS(ConnectionDB.host);
+		}else {
+			mapProject = daoLogin.getListProjectPMS(ConnectionDB.host);
+		}
+		comboboxProject.removeAllItems();
+		for (String key : mapProject.keySet()) {
+			if(key.indexOf("_for_qc") == -1) {
+				comboboxProject.addItem(key);
+			}
+		}
+	}
+	
+	
+	private void enterSystem() 
+	{
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() 
+			{
+				loadForm();
+			}
+		});
+
+	}
+	
+	/**
+	 * load form
+	 */
+	private void loadForm() {
+		List<String> listSdd = setListSDD();
+		try {
+			   if(comboboxProject.getSelectedIndex() > -1) 
+			   {
+				   projectName = comboboxProject.getSelectedItem().toString();
+				   project = mapProject.get(projectName);
+				   boolean isAdmin = daoLogin.checkIsAdminOfProject(userName, project, UserRole.ADMIN);
+				   if(isAdmin || userName.equals("lqnhu") || userName.equals("dttdung") || userName.equals("ntduong") || userName.equals("tttdiem")) 
+				   {
+					   if(radioDrawFocus.isSelected()) {
+						   new FrmPaintSingleFocus(this ,projectName , project).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioFocusMulti.isSelected()) {
+						   new FrmPaintMultiFocus(this ,projectName , project).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioImportFeedback.isSelected()) {
+						   new FrmImportCustomerFeedback(this ,userName , project).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioAnlyzeRework.isSelected()) {
+						   new FrmAnalyzeRework( this,userName, project).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioMoveDataRework.isSelected()) {
+						   new FrmMoveDataBetweenProofAndRework(project, userName, this).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioReturnJobWithField.isSelected()) {
+						   new FrmReturnJobWithField(this , userName , project).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioAdminFinal.isSelected()) {
+						   new FrmAdminFinal(project, this).setVisible(true);;
+						   this.dispose();
+					   }
+					   
+					   if(radioSetPriorityGetJob.isSelected()) {
+						   new FrmSetPriorityGetJob(this , userName , project).setVisible(true);
+						   this.dispose();
+					   }
+					   
+					   if(radioAssignJobSaveTime.isSelected()) {
+						   new FrmPjmAssignJob(project, userName, this, true, "Form Pjm Assign Job Save Time").setVisible(true);
+						   this.dispose();
+					   }
+					   
+					   if(radioAssignNotSaveTime.isSelected()) {
+						   new FrmPjmAssignJob(project, userName, this, false, "Form Pjm Assign Job Not Save Time").setVisible(true);
+						   this.dispose();
+					   }
+
+					   if(radioInfoGroupUser.isSelected()) {
+						   new FrmInfoGroupUser(this).setVisible(true);
+						   this.dispose();
+					   }
+					   
+					   if(radioConvertImages.isSelected()) {
+						   new FrmConvertImage(this, project).setVisible(true);
+						   this.dispose();
+					   }
+					   
+					   if(radioConfigFieldNameList.isSelected()) {
+						   new FrmConfigFieldNameList(this, project).setVisible(true);
+						   this.dispose();
+					   }
+					   
+					   if(radioAssignTypeProofReworkForUser.isSelected()) {
+						   new FrmAssignRoleForAllStep(this, project).setVisible(true);
+						   this.dispose();
+					   }
+					   
+					   if(radioImportLookup.isSelected()) {
+						   new FrmImportLookup(project,this ).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioRunAutoDeletData.isSelected()) {
+						   new FrmAutoDeleteAndCopyRework(userName, project,true, this).setVisible(true);
+						   this.dispose();
+					   }
+					   if(radioCopyRework.isSelected()) {
+						   new FrmAutoDeleteAndCopyRework(userName, project,false, this).setVisible(true);
+						   this.dispose();
+					   }
+				   }
+
+
+				   //==========================================================================================================
+				   
+				   if(radioCompareForQMD.isSelected()) {
+					   new FrmAnalyzeAndCompareForQMD(project, userName, this , true).setVisible(true);
+					   this.dispose();
+				   }
+				   if(radioQmdAnalyze.isSelected()) {
+					   new FrmAnalyzeAndCompareForQMD(project, userName, this , false).setVisible(true);
+					   this.dispose();
+				   }
+				   
+				   if(radioMoveDataDPCAndDigiSoft.isSelected()) {
+					   new FrmMoveDataDpcQmdOtherProject(this, project, userName).setVisible(true);
+					   this.dispose();
+				   }
+				   
+				   if(radioCheckExport.isSelected()){
+					   new FrmCheckExport(this, project).setVisible(true);
+					   this.dispose();
+				   }
+				   
+				   if(radioQMDTranferDataDPC.isSelected()) {
+					   new FrmQMDTransferDataDPC(project, userName, this).setVisible(true);
+					   this.dispose();
+				   }
+				   
+				   //==========================================================================================================
+				   
+				   if(radioAdddField.isSelected())
+				   {
+					   if(listSdd.contains(userName)) {
+						   new FrmAddFieldNameList(project, userName, this , mapProject).setVisible(true);
+						   this.dispose();
+					   }
+				   }
+				   if(radioSupportMoveDataLookup.isSelected()) 
+				   {
+					   if(listSdd.contains(userName)) 
+					   {
+					     new FrmSupportMoveData(project, userName, this , mapProject).setVisible(true);
+					     this.dispose();
+					   }
+				   }
+				   
+				   if(radioImportExportLookup.isSelected()) 
+				   {
+					   if(listSdd.contains(userName)) 
+					   {
+					     new FrmImportExportLookup(project , this).setVisible(true);
+					     this.dispose();
+					   }
+				   }
+				   
+				   if(radioImportLookupQMD.isSelected()) 
+				   {
+					   if(listSdd.contains(userName)) 
+					   {
+					     new FrmAncestryAddLookupQMD(this , mapProject , project.getProj_name()).setVisible(true);
+					     this.dispose();
+					   }
+				   }
+				   
+				   if(radioCheckAnrede.isSelected()){
+					   new FrmProcessAnredeAndStatusGiven(project, this).setVisible(true);
+					   this.dispose();
+				   }
+				   if(radioUpperLowerData.isSelected()) {
+					   new FrmUpperLowerData(this, project).setVisible(true);
+					   this.dispose();
+				   }
+				   
+			   }
+		} catch (Exception e) {
+			e.printStackTrace();
+			AppUtility.msgError(this, "loadForm : "  + e.toString());
+		}
+
+	}
+	
+	/**
+	 * set list user SDD
+	 */
+	private List<String> setListSDD() 
+	{
+		List<String> listSDD = new ArrayList<String>();
+		listSDD.add("lqnhu");
+		listSDD.add("dntcuong");
+		listSDD.add("tttdiem");
+		listSDD.add("ntduong");
+		listSDD.add("nthloan");
+		return listSDD;
+	}
+	
+	//======================================================================================================================
+	
+	/**
+	 * Auto-generated main method to display this JFrame
+	 */
+	public static void main(String[] args) {
+
+		String data = "";
+		String user = "";
+		user = "lqnhu";
+
+		if (args.length > 0) {
+			data = args[args.length - 1];
+		} else {
+			data = "10.10.5.10;Production1;"
+					+ "db_13_122_ancestry_43383;" // database name
+					+ "db_13_122_ancestry_43383;" // title
+					+ "335;"
+					+ "vvtu;"
+					+ "ps_122_ancestry_43383;" // user
+					+ "digi122_ancestry_43383;" // password
+					+ "jdbc:postgresql://10.10.1.3/Production1;"
+					+ "jdbc:postgresql://10.10.1.3/Production1;"
+					+ "3449;" // project id
+					+ ""
+					+ user
+					+ ";"
+					+ "P:;"
+					+ "/mnt/production;"
+					+ "jdbc:postgresql://10.10.5.7/kliktel_2008"
+					+ "--set search_path to address--landde@jdbc:postgresql://10.10.1.4/austria"
+					+ "--set search_path to address_austria--landat@jdbc:postgresql://10.10.1.4/slowakai"
+					+ "--set search_path to address_slowakai--landsk@jdbc:postgresql://10.10.1.4/netherland"
+					+ "--set search_path to address_netherland--landnl@jdbc:postgresql://10.10.1.4/belegium"
+					+ "--set search_path to address_belegium--landbe@jdbc:postgresql://10.10.1.4/frankreich"
+					+ "--set search_path to address_frankreich--landfr@jdbc:postgresql://10.10.1.4/polen"
+					+ "--set search_path to address_polen--landpl@jdbc:postgresql://10.10.1.4/slovania"
+					+ "--set search_path to address_slovania--landsi@jdbc:postgresql://10.10.1.4/swiss"
+					+ "--set search_path to address_swiss--landch@jdbc:postgresql://10.10.1.4/tschech"
+					+ "--set search_path to address_tschech--landcz@jdbc:postgresql://10.10.1.4/kroatien"
+					+ "--set search_path to address_kroatien--landhr@jdbc:postgresql://10.10.1.4/hungary"
+					+ "--set search_path to address_hungary--landhu@jdbc:postgresql://10.10.1.4/spain"
+					+ "--set search_path to address_spain--landes@jdbc:postgresql://10.10.1.4/england"
+					+ "--set search_path to address_england--landuk@jdbc:postgresql://10.10.1.4/lookup"
+					+ "--set search_path to thucung--landpet";
+
+
+		}
+
+		FrmStep frmStep = new FrmStep();
+        frmStep.login(data);
+	}
+	
+	private JPanel getPanelDPC() {
+		if(panelDPC == null) {
+			panelDPC = new JPanel();
+			BoxLayout panelDPCLayout = new BoxLayout(panelDPC, javax.swing.BoxLayout.Y_AXIS);
+			panelDPC.setBorder(BorderFactory.createTitledBorder(null, "DPC", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial",1,14), new java.awt.Color(255,0,0)));
+			panelDPC.setLayout(panelDPCLayout);
+			panelDPC.setPreferredSize(new java.awt.Dimension(342, 386));
+			{
+				radioImportFeedback = new JRadioButton();
+				panelDPC.add(radioImportFeedback);
+				radioImportFeedback.setText("Import Feedback Customer");
+				radioImportFeedback.setFont(new java.awt.Font("Arial",0,16));
+				radioImportFeedback.setPreferredSize(new java.awt.Dimension(223, 21));
+				getButtonGroup().add(radioImportFeedback);
+			}
+			{
+				radioAnlyzeRework = new JRadioButton();
+				panelDPC.add(radioAnlyzeRework);
+				radioAnlyzeRework.setText("Analyze Feedback Customer");
+				radioAnlyzeRework.setFont(new java.awt.Font("Arial",0,16));
+				radioAnlyzeRework.setPreferredSize(new java.awt.Dimension(208, 20));
+				getButtonGroup().add(radioAnlyzeRework);
+			}
+			{
+				radioDrawFocus = new JRadioButton();
+				panelDPC.add(radioDrawFocus);
+				panelDPC.add(getRadioFocusMulti());
+				panelDPC.add(getRadioMoveDataRework());
+				panelDPC.add(getRadioAssignWithField());
+				panelDPC.add(getRadioAdminFinal());
+				panelDPC.add(getRadioSetPriorityGetJob());
+				panelDPC.add(getRadioAssignJobSaveTime());
+				panelDPC.add(getRadioAssignNotSaveTime());
+				panelDPC.add(getRadioInfoGroupUser());
+				panelDPC.add(getRadioConvertImages());
+				panelDPC.add(getRadioConfigFieldNameList());
+				panelDPC.add(getRadioAssignTypeProofReworkForUser());
+				panelDPC.add(getJRadioButton1());
+				panelDPC.add(getRadioRunAutoDeletData());
+				panelDPC.add(getRadioDownloadRework());
+				panelMain.add(getPanelQMD(), new AnchorConstraint(319, 973, 594, 484, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				panelMain.add(getJButton1(), new AnchorConstraint(919, 973, 999, 755, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				panelMain.add(getCheckboxGetAll(), new AnchorConstraint(90, 985, 136, 775, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				panelMain.add(getPanelSDD(), new AnchorConstraint(604, 969, 907, 484, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				radioDrawFocus.setText("Draw Focus Single Record");
+				radioDrawFocus.setFont(new java.awt.Font("Arial",0,16));
+				radioDrawFocus.setPreferredSize(new java.awt.Dimension(233, 20));
+				getButtonGroup().add(radioDrawFocus);
+			}
+		}
+		return panelDPC;
+	}
+	
+	private JPanel getPanelQMD() {
+		if(panelQMD == null) {
+			panelQMD = new JPanel();
+			BoxLayout panelQMDLayout = new BoxLayout(panelQMD, javax.swing.BoxLayout.Y_AXIS);
+			panelQMD.setLayout(panelQMDLayout);
+			panelQMD.setBorder(BorderFactory.createTitledBorder(null, "QMD", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial",1,14), new java.awt.Color(0,0,255)));
+			panelQMD.setPreferredSize(new java.awt.Dimension(359, 156));
+			panelQMD.add(getRadioQMDTranferDataDPC());
+			panelQMD.add(getRadioCompareForQMD());
+			panelQMD.add(getRadioQmdAnalyze());
+			panelQMD.add(getRadioMoveDataDPCAndDigiSoft());
+			panelQMD.add(getRadioCheckExport());
+		}
+		return panelQMD;
+	}
+
+	private JRadioButton getRadioCompareForQMD() {
+		if(radioCompareForQMD == null) {
+			radioCompareForQMD = new JRadioButton();
+			radioCompareForQMD.setText("QMD Compare");
+			radioCompareForQMD.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioCompareForQMD);
+			getButtonGroup().add(radioCompareForQMD);
+			getButtonGroup().add(radioCompareForQMD);
+			getButtonGroup().add(radioCompareForQMD);
+		}
+		return radioCompareForQMD;
+	}
+	
+	private JRadioButton getRadioQmdAnalyze() {
+		if(radioQmdAnalyze == null) {
+			radioQmdAnalyze = new JRadioButton();
+			radioQmdAnalyze.setText("QMD Analyze");
+			radioQmdAnalyze.setPreferredSize(new java.awt.Dimension(187, 18));
+			radioQmdAnalyze.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioQmdAnalyze);
+		}
+		return radioQmdAnalyze;
+	}
+	
+	private JRadioButton getRadioAssignWithField() {
+		if(radioReturnJobWithField == null) {
+			radioReturnJobWithField = new JRadioButton();
+			radioReturnJobWithField.setText("Return Job With Fields");
+			radioReturnJobWithField.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioReturnJobWithField);
+		}
+		return radioReturnJobWithField;
+	}
+
+	private JRadioButton getRadioAdminFinal() {
+		if(radioAdminFinal == null) {
+			radioAdminFinal = new JRadioButton();
+			radioAdminFinal.setText("Admin Final");
+			radioAdminFinal.setFont(new java.awt.Font("Arial",0,16));
+			radioAdminFinal.setPreferredSize(new java.awt.Dimension(151, 21));
+			getButtonGroup().add(radioAdminFinal);
+		}
+		return radioAdminFinal;
+	}
+	
+	private JRadioButton getRadioSetPriorityGetJob() {
+		if(radioSetPriorityGetJob == null) {
+			radioSetPriorityGetJob = new JRadioButton();
+			radioSetPriorityGetJob.setText("Set Priority Get Job");
+			radioSetPriorityGetJob.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioSetPriorityGetJob);
+		}
+		return radioSetPriorityGetJob;
+	}
+	
+	private JRadioButton getRadioAssignJobSaveTime() {
+		if(radioAssignJobSaveTime == null) {
+			radioAssignJobSaveTime = new JRadioButton();
+			radioAssignJobSaveTime.setText("Assign Job Save time");
+			getButtonGroup().add(radioAssignJobSaveTime);
+			radioAssignJobSaveTime.setFont(new java.awt.Font("Arial",0,16));
+		}
+		return radioAssignJobSaveTime;
+	}
+	
+	private JRadioButton getRadioAssignNotSaveTime() {
+		if(radioAssignNotSaveTime == null) {
+			radioAssignNotSaveTime = new JRadioButton();
+			radioAssignNotSaveTime.setText("Assign Job Not Save time");
+			radioAssignNotSaveTime.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioAssignNotSaveTime);
+		}
+		return radioAssignNotSaveTime;
+	}
+	
+	private JRadioButton getRadioMoveDataDPCAndDigiSoft() {
+		if(radioMoveDataDPCAndDigiSoft == null) {
+			radioMoveDataDPCAndDigiSoft = new JRadioButton();
+			radioMoveDataDPCAndDigiSoft.setText("Move Data DPC & DIGI-SOFT ( For Bayer )");
+			radioMoveDataDPCAndDigiSoft.setFont(new java.awt.Font("Arial",0,16));
+			radioMoveDataDPCAndDigiSoft.setPreferredSize(new java.awt.Dimension(293, 21));
+			getButtonGroup().add(radioMoveDataDPCAndDigiSoft);
+		}
+		return radioMoveDataDPCAndDigiSoft;
+	}
+	
+	private JRadioButton getRadioInfoGroupUser() {
+		if(radioInfoGroupUser == null) {
+			radioInfoGroupUser = new JRadioButton();
+			radioInfoGroupUser.setText("Group User Information");
+			radioInfoGroupUser.setFont(new java.awt.Font("Arial",0,16));
+			radioInfoGroupUser.setPreferredSize(new java.awt.Dimension(244, 21));
+			getButtonGroup().add(radioInfoGroupUser);
+		}
+		return radioInfoGroupUser;
+	}
+	
+	private JRadioButton getRadioImportExportLookup() {
+		if(radioImportExportLookup == null) {
+			radioImportExportLookup = new JRadioButton();
+			radioImportExportLookup.setText("Import & Export Lookup");
+			radioImportExportLookup.setFont(new java.awt.Font("Arial",0,14));
+			getButtonGroup().add(radioImportExportLookup);
+		}
+		return radioImportExportLookup;
+	}
+	
+	private JRadioButton getRadioConvertImages() {
+		if(radioConvertImages == null) {
+			radioConvertImages = new JRadioButton();
+			radioConvertImages.setText("Convert Images");
+			radioConvertImages.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioConvertImages);
+		}
+		return radioConvertImages;
+	}
+	
+	private JRadioButton getRadioImportLookupQMD() {
+		if(radioImportLookupQMD == null) {
+			radioImportLookupQMD = new JRadioButton();
+			radioImportLookupQMD.setText("Import Lookup For QMD");
+			radioImportLookupQMD.setFont(new java.awt.Font("Arial",0,14));
+			getButtonGroup().add(radioImportLookupQMD);
+		}
+		return radioImportLookupQMD;
+	}
+	
+	private JRadioButton getRadioCheckExport() {
+		if(radioCheckExport == null) {
+			radioCheckExport = new JRadioButton();
+			radioCheckExport.setText("Check Export");
+			radioCheckExport.setFont(new java.awt.Font("Arial",0,16));
+			radioCheckExport.setPreferredSize(new java.awt.Dimension(293,21));
+			getButtonGroup().add(radioCheckExport);
+		}
+		return radioCheckExport;
+	}
+	
+	private JRadioButton getRadioConfigFieldNameList() {
+		if(radioConfigFieldNameList == null) {
+			radioConfigFieldNameList = new JRadioButton();
+			radioConfigFieldNameList.setText("Config Field Name List");
+			radioConfigFieldNameList.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioConfigFieldNameList);
+		}
+		return radioConfigFieldNameList;
+	}
+	
+	private JRadioButton getRadioCheckAnrede() {
+		if(radioCheckAnrede == null) {
+			radioCheckAnrede = new JRadioButton();
+			radioCheckAnrede.setText("Check Anrede");
+			radioCheckAnrede.setFont(new java.awt.Font("Arial",0,14));
+			getButtonGroup().add(radioCheckAnrede);
+		}
+		return radioCheckAnrede;
+	}
+	
+	private JRadioButton getRadioAssignTypeProofReworkForUser() {
+		if(radioAssignTypeProofReworkForUser == null) {
+			radioAssignTypeProofReworkForUser = new JRadioButton();
+			radioAssignTypeProofReworkForUser.setText("Assign Type Or Proof Or Rework");
+			radioAssignTypeProofReworkForUser.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioAssignTypeProofReworkForUser);
+		}
+		return radioAssignTypeProofReworkForUser;
+	}
+	
+	private JRadioButton getRadioUpperLowerData() {
+		if(radioUpperLowerData == null) {
+			radioUpperLowerData = new JRadioButton();
+			radioUpperLowerData.setText("Upper Lower data");
+			radioUpperLowerData.setFont(new java.awt.Font("Arial",0,14));
+			getButtonGroup().add(radioUpperLowerData);
+		}
+		return radioUpperLowerData;
+	}
+	
+	private JRadioButton getJRadioButton1() {
+		if(radioImportLookup == null) {
+			radioImportLookup = new JRadioButton();
+			radioImportLookup.setText("Auto Import Lookup");
+			radioImportLookup.setFont(new java.awt.Font("Arial",0,16));
+		}
+		return radioImportLookup;
+	}
+	
+	private JRadioButton getRadioRunAutoDeletData() {
+		if(radioRunAutoDeletData == null) {
+			radioRunAutoDeletData = new JRadioButton();
+			radioRunAutoDeletData.setText("Run Auto Delete Data");
+			radioRunAutoDeletData.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioRunAutoDeletData);
+		}
+		return radioRunAutoDeletData;
+	}
+	
+	private JRadioButton getRadioDownloadRework() {
+		if(radioCopyRework == null) {
+			radioCopyRework = new JRadioButton();
+			radioCopyRework.setText("Copy Rework");
+			radioCopyRework.setFont(new java.awt.Font("Arial",0,16));
+			getButtonGroup().add(radioCopyRework);
+		}
+		return radioCopyRework;
+	}
+
+}

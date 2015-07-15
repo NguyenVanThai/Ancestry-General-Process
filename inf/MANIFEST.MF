@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.7.0_11 (Taluan - Sun Microsystems Inc.)
+Main-Class: com.digitexx.ancestry.gui.FrmStep
+Class-Path: lib/activation.jar lib/antlr.jar lib/aspriseOCR.jar lib/ba
+ lloontip-1.2.1.jar lib/barbecue-1.5-beta1.jar lib/bsh-2.0b4.jar lib/
+ CalendarTool.jar lib/cglib-nodep-2.1_3.jar lib/cglib-nodep.jar lib/Cl
+ assify_Telefone.jar lib/ClipboardInfo.jar lib/commons-collections.jar
+  lib/commons-lang.jar lib/commons-lang3-3.3.2.jar lib/commons-logging
+ .jar lib/commons-net-1.4.1.jar lib/databaseConnection.jar lib/databas
+ eInfo.jar lib/digitexx-create-logger.jar lib/dom4j.jar lib/edtftpj-1.
+ 5.5.jar lib/ehcache-1.1.jar lib/ehcache.jar lib/ExportExcel.jar lib/F
+ ormatJtable.jar lib/FormatJtableCell.jar lib/gnujaxp.jar lib/hibernat
+ e3.jar lib/image_helper-1.0.jar lib/itext-1.4.6.jar lib/jacob.jar lib
+ /jai_codec.jar lib/jai_core.jar lib/jai_imageio.jar lib/jai_windows-i
+ 586.jar lib/javamail.jar lib/jcalendar-1.4.jar lib/jcom.jar lib/jdom.
+ jar lib/jftp.jar lib/jid.jar lib/jta.jar lib/jtds-1.2.1.jar lib/JTwai
+ n.jar lib/junit.jar lib/jxl.jar lib/libquaqua.jnilib lib/libquaqua64.
+ jnilib lib/LibraryLookup.jar lib/limitJtextField.jar lib/liquidlnf.ja
+ r lib/log4j.jar lib/looks-2.1.1.jar lib/lookupBox.jar lib/mail.jar li
+ b/mlibwrapper_jai.jar lib/mysql-connector-java-5.0.3-bin.jar lib/ocr.
+ jar lib/OptionPane.jar lib/PDFRenderer.jar lib/poi-3.10-FINAL-2014020
+ 8.jar lib/poi-excelant-3.10-FINAL-20140208.jar lib/poi-ooxml-3.10-FIN
+ AL-20140208.jar lib/poi-ooxml-schemas-3.10-FINAL-20140208.jar lib/poi
+ -ooxml-schemas-3.8-20120326.jar lib/poi-scratchpad-3.10-FINAL-2014020
+ 8.jar lib/postgresql-9.2-1002.jdbc4.jar lib/quaqua-filechooser-only.j
+ ar lib/quaqua-test.jar lib/quaqua.jar lib/SendMessage.jar lib/servlet
+ .jar lib/sqlite-jdbc-3.7.2.jar lib/sqljdbc.jar lib/StaskBarLibrary.ja
+ r lib/swing-layout-1.0.jar lib/systray4j.jar lib/uk.co.mmscomputing.d
+ evice.twain.jar lib/VietKeyInput.jar lib/xmlbeans-2.3.0.jar
+X-COMMENT: Main-Class will be added automatically by build

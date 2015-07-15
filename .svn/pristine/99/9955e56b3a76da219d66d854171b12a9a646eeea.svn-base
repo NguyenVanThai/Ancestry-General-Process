@@ -1,0 +1,189 @@
+/**
+ * 
+ */
+package com.digitexx.ancestry.table.render;
+
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.swing.AbstractCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.TableCellEditor;
+
+import com.digitexx.ancestry.bean.BeanDefineRule;
+import com.digitexx.ancestry.util.AppUtility;
+import com.digitexx.ancestry.util.JTableUtil;
+import com.digitexx.util.StringUtil;
+
+/**
+ * @author lqnhu
+ * 
+ */
+@SuppressWarnings("serial")
+public class DefineRuleCellEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+
+	private BeanDefineRule beanDefineRule;
+	private List<BeanDefineRule> listDefineRule;
+	private Map<String , BeanDefineRule> mapDefineRule;
+	private JTable tableData;
+	private int row;
+	private JFrame frame;
+
+	public DefineRuleCellEditor(List<BeanDefineRule> listDefineRule , Map<String , BeanDefineRule> mapDefineRule , JFrame frame) {
+		this.listDefineRule = listDefineRule;
+		this.mapDefineRule  = mapDefineRule;
+		this.frame          = frame;
+	}
+
+	@Override
+	public Object getCellEditorValue() {
+		return this.beanDefineRule;
+	}
+
+	@Override
+	public Component getTableCellEditorComponent(JTable table, Object value,boolean isSelected, int row, int column) {
+		this.tableData = table;
+		this.row = row;
+		if (value instanceof BeanDefineRule) {
+			this.beanDefineRule = (BeanDefineRule) value;
+		}
+
+		JComboBox<BeanDefineRule> comboboxRule = new JComboBox<BeanDefineRule>();
+		for (BeanDefineRule beanDefineRule : listDefineRule) {
+			comboboxRule.addItem(beanDefineRule);
+		}
+		comboboxRule.setSelectedItem(beanDefineRule);
+		comboboxRule.addActionListener(this);
+		comboboxRule.setFont( new Font("Arial" , Font.PLAIN  , 16));
+		return comboboxRule;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) 
+	{
+		JComboBox<BeanDefineRule> cboRule = (JComboBox<BeanDefineRule>) event.getSource();
+		this.beanDefineRule = (BeanDefineRule) cboRule.getSelectedItem();
+		int idxFieldValue = tableData.getColumnModel().getColumnIndex("Field Value");
+		String fieldName = JTableUtil.getValuesByHeaderName(tableData, "Field Name", row );
+		String tmp = "";
+		String fieldValue = "";
+		String valueOfField = "";
+		String [] arrTmp;
+		
+		String field1 ="";
+		String field2 ="";
+		String field3 ="";
+
+		String age1 = "";
+		String age2 = "";
+		String age3 = "";
+		String age4 = "";
+		String age5 = "";
+		String field6 ="";
+		try {
+			if(beanDefineRule != null) 
+			{
+
+				int status = beanDefineRule.getStatus();
+				tmp = mapDefineRule.get(beanDefineRule.getRule_name()).getRule_value().toString();
+				
+				switch (status) {
+				case 1:
+					fieldValue = tmp.replace("%s", fieldName);
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 2 :
+					valueOfField = StringUtil.setNotNull(JTableUtil.getValuesByHeaderName(tableData, "Field Value", row ));
+					fieldValue = String.format( tmp , fieldName , valueOfField);
+				    tableData.setValueAt(fieldValue, row, idxFieldValue);
+				    break;
+				    
+				case 3 :
+					arrTmp = fieldName.split(",");
+					field1 = arrTmp[0];
+					field2 = arrTmp[1];
+					field3 = arrTmp[2];
+					fieldValue = String.format( tmp , field1 , field2 , field3 ,field1 , field2 , field3);
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 4 :
+					field1 = fieldName.substring(0 , fieldName.indexOf(","));
+					field2 = fieldName.substring(fieldName.indexOf(","));
+					fieldValue = String.format( tmp , field1 , field2 , field1 , field2 );
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 6 :
+					arrTmp = fieldName.split(",");
+					age1 = arrTmp[0];
+					age2 = arrTmp[1];
+					age3 = arrTmp[2];
+					age4 = arrTmp[3];
+					age5 = arrTmp[4];
+					fieldValue = String.format( tmp , age1 , age2 , age3 , age4 , age5 );
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 7 :
+					arrTmp = fieldName.split(",");
+					age1 = arrTmp[0];
+					age2 = arrTmp[1];
+					age3 = arrTmp[2];
+					age4 = arrTmp[3];
+					age5 = arrTmp[4];
+					field6 = arrTmp[5];
+					fieldValue = String.format( tmp , age1 , age2 , age3 , age4 , age5 , field6 );
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 8 :
+					arrTmp = fieldName.split(",");
+					field1 = arrTmp[0];
+					field2 = arrTmp[1];
+					field3 = arrTmp[2];
+					fieldValue = String.format( tmp , field1 , field2 , field3 );
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 9:
+					fieldValue = String.format( tmp , fieldName , fieldName , fieldName);
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 10:
+					arrTmp = fieldName.split(",");
+					field1 = arrTmp[0];
+					field2 = arrTmp[1];
+					field3 = arrTmp[2];
+					fieldValue = String.format( tmp , field1 , field2 , field1, field3);
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+					
+				case 11:
+					fieldValue = tmp.replaceAll("%s", fieldName);
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+
+				default:
+					tableData.setValueAt(fieldValue, row, idxFieldValue);
+					break;
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			AppUtility.msgError(frame, "actionPerformed : "  + e.toString());
+		}
+
+	}
+
+}

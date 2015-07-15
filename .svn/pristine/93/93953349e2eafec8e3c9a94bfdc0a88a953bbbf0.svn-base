@@ -1,0 +1,447 @@
+package com.digitexx.ancestry.gui;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+
+import com.cloudgarden.layout.AnchorConstraint;
+import com.cloudgarden.layout.AnchorLayout;
+import com.digitexx.ancestry.bean.BeanUserPMS;
+import com.digitexx.ancestry.bean.BeanUserWorking;
+import com.digitexx.ancestry.bean.Tbl_Projects;
+import com.digitexx.ancestry.conts.UserRole;
+import com.digitexx.ancestry.dao.DaoAssignRoleForAllStep;
+import com.digitexx.ancestry.util.AppUtility;
+
+
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
+@SuppressWarnings("serial")
+public class FrmAssignRoleForAllStep extends javax.swing.JFrame {
+	
+	private JPanel mainPanel;
+	private JList<String> userWorkList;
+	private JList<String> employeesList;
+	private JLabel userWorkLB;
+	private JRadioButton radioButtonProok;
+	private JScrollPane userWorkScroll;
+	private JRadioButton radioButtonFinal;
+	private JScrollPane employeesScroll;
+	private JButton leftBn;
+	private JButton rightBn;
+	private JRadioButton radioButtonAdmin;
+	private JRadioButton radioButtonClassify;
+	private JRadioButton radioButtonType;
+	private JRadioButton radioRework;
+	private JLabel usersLB;
+	private JTextField projectNameTx;
+	private JLabel projectNameLB;
+  	private DefaultListModel<String>  employeesListModel ; 
+  	private DefaultListModel<String>  userWorkListModel ; 
+  	private ButtonGroup buttonGroup = new ButtonGroup();
+	
+    private int userId = -1;
+    private int userRole = -1;
+    private String username = "";
+    
+	private List<BeanUserPMS> listUserPMS   = new ArrayList<BeanUserPMS>();
+	private List<BeanUserWorking> listUserByRole = new ArrayList<BeanUserWorking>();
+	private DaoAssignRoleForAllStep daoAssignUser;
+	private byte selectedRole = -1 ;
+	private Tbl_Projects project;
+	private FrmStep frmStep;
+	
+	public FrmAssignRoleForAllStep(FrmStep frmStep , Tbl_Projects project  ) {
+		super();
+		initGUI();
+		this.frmStep = frmStep;
+	    this.project = project;
+	    this.daoAssignUser = new DaoAssignRoleForAllStep(project) ; 
+	    initDefaultValue() ; 
+	    adminRBActionPerformed(null);
+	}
+	
+	
+	private void initDefaultValue() {
+		try {
+			this.projectNameTx.setText( project.getProj_name() ) ;
+		    listUserPMS = daoAssignUser.getListUserPMS();
+			employeesListModel.removeAllElements() ; 
+			userWorkListModel.removeAllElements() ; 
+			for (BeanUserPMS beanUserPMS : listUserPMS) {
+				employeesListModel.addElement( beanUserPMS.getUsr_name()) ;
+			}
+			userWorkListModel.add( 0 , this.username ) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			AppUtility.msgError(this, "initDefaultValue : "  + e.toString());
+		}
+
+	}
+	
+	private void initGUI() {
+		try {
+			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+			this.setPreferredSize(new java.awt.Dimension(602, 472));
+			this.setBounds(0, 0, 602, 472);
+			setVisible(true);
+			AnchorLayout thisLayout = new AnchorLayout();
+			getContentPane().setLayout(thisLayout);
+			this.setTitle("Assign User Working ");
+			{
+				mainPanel = new JPanel();
+				AnchorLayout mainPanelLayout = new AnchorLayout();
+				getContentPane().add(mainPanel, new AnchorConstraint(17, 987, 992, 9, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+				mainPanel.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
+				mainPanel.setLayout(mainPanelLayout);
+				mainPanel.setPreferredSize(new java.awt.Dimension(581, 308));
+				{
+					projectNameLB = new JLabel();
+					mainPanel.add(projectNameLB, new AnchorConstraint(24, 200, 92, 24, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					projectNameLB.setText("Project Name");
+					projectNameLB.setBorder(new LineBorder(new java.awt.Color(0,0,0), 1, false));
+					projectNameLB.setFont(new java.awt.Font("Arial",1,14));
+					projectNameLB.setPreferredSize(new java.awt.Dimension(102, 21));
+				}
+				{
+					projectNameTx = new JTextField();
+					mainPanel.add(projectNameTx, new AnchorConstraint(24, 966, 92, 200, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					projectNameTx.setEditable( false ) ; 
+					projectNameTx.setFont(new java.awt.Font("Arial",1,14));
+					projectNameTx.setForeground(new java.awt.Color(255,0,0));
+					projectNameTx.setPreferredSize(new java.awt.Dimension(445, 21));
+				}
+				{
+					usersLB = new JLabel();
+					mainPanel.add(usersLB, new AnchorConstraint(131, 398, 251, 37, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					usersLB.setText("Employees");
+					usersLB.setHorizontalAlignment(SwingConstants.CENTER);
+					usersLB.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
+					usersLB.setFont(new java.awt.Font("Arial",1,14));
+					usersLB.setPreferredSize(new java.awt.Dimension(210, 37));
+				}
+				{
+					userWorkLB = new JLabel();
+					mainPanel.add(userWorkLB, new AnchorConstraint(121, 976, 251, 603, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					userWorkLB.setText("Working Users ");
+					userWorkLB.setHorizontalAlignment(SwingConstants.CENTER);
+					userWorkLB.setBorder(BorderFactory.createEtchedBorder(BevelBorder.LOWERED));
+					userWorkLB.setFont(new java.awt.Font("Arial",1,14));
+					userWorkLB.setPreferredSize(new java.awt.Dimension(217, 40));
+				}
+				
+				{
+					rightBn = new JButton();
+					mainPanel.add(rightBn, new AnchorConstraint(797, 530, 865, 422, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					rightBn.setText(">>");
+					rightBn.setFont(new java.awt.Font(".VnClarendonH",1,16));
+					rightBn.setForeground(new java.awt.Color(255,0,0));
+					rightBn.setPreferredSize(new java.awt.Dimension(63, 21));
+					rightBn.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							rightBnActionPerformed(evt);
+						}
+					});
+				}
+				{
+					leftBn = new JButton();
+					mainPanel.add(leftBn, new AnchorConstraint(887, 530, 956, 422, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					leftBn.setText("<<");
+					leftBn.setFont(new java.awt.Font(".VnClarendonH",1,16));
+					leftBn.setForeground(new java.awt.Color(255,0,0));
+					leftBn.setPreferredSize(new java.awt.Dimension(63, 21));
+					leftBn.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							leftBnActionPerformed(evt);
+						}
+					});
+				}
+				{
+					radioButtonType = new JRadioButton();
+					mainPanel.add(radioButtonType, new AnchorConstraint(345, 591, 426, 422, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					buttonGroup.add(radioButtonType);
+					radioButtonType.setText("Type");
+					radioButtonType.setFont(new java.awt.Font("Arial",1,14));
+					radioButtonType.setForeground(new java.awt.Color(0,0,255));
+					radioButtonType.setPreferredSize(new java.awt.Dimension(98, 25));
+					radioButtonType.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							radioButtonTypeActionPerformed(evt);
+						}
+					});
+				}
+				{
+					radioButtonClassify = new JRadioButton();
+					mainPanel.add(radioButtonClassify, new AnchorConstraint(602, 594, 693, 424, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					buttonGroup.add(radioButtonClassify);
+					radioButtonClassify.setText("Classify");
+					radioButtonClassify.setFont(new java.awt.Font("Arial",1,14));
+					radioButtonClassify.setForeground(new java.awt.Color(0,0,255));
+					radioButtonClassify.setPreferredSize(new java.awt.Dimension(99, 28));
+					radioButtonClassify.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							radioButtonClassifyActionPerformed(evt);
+						}
+					});
+				}
+				{
+					radioButtonAdmin = new JRadioButton();
+					mainPanel.add(radioButtonAdmin, new AnchorConstraint(696, 592, 787, 422, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					buttonGroup.add(radioButtonAdmin);
+					radioButtonAdmin.setText("Admin");
+					radioButtonAdmin.setSelected(true);
+					radioButtonAdmin.setFont(new java.awt.Font("Arial",1,14));
+					radioButtonAdmin.setForeground(new java.awt.Color(0,0,255));
+					radioButtonAdmin.setPreferredSize(new java.awt.Dimension(99, 28));
+					radioButtonAdmin.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							adminRBActionPerformed(evt);
+						}
+					});
+				}
+				{
+					employeesListModel = new DefaultListModel<String>();
+					employeesList = new JList<String>();
+					employeesList.setModel(employeesListModel);
+					employeesList.setFont(new java.awt.Font("Arial",0,18));
+					employeesScroll = new JScrollPane( employeesList );
+					mainPanel.add(employeesScroll, new AnchorConstraint(274, 398, 956, 37, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					employeesScroll.setPreferredSize(new java.awt.Dimension(210, 210));
+
+				}
+				
+				{
+                    userWorkListModel = new DefaultListModel<String>() ;
+					userWorkList = new JList<String>();
+					userWorkList.setModel( userWorkListModel );
+					mainPanel.add(userWorkList);					
+					userWorkList.setFont(new java.awt.Font("Arial",0,18));
+					userWorkScroll = new JScrollPane( userWorkList );
+					mainPanel.add(userWorkScroll, new AnchorConstraint(274, 976, 956, 603, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					userWorkScroll.setPreferredSize(new java.awt.Dimension(217, 210));
+				}
+				
+				{
+					radioButtonProok = new JRadioButton();
+					mainPanel.add(radioButtonProok, new AnchorConstraint(426, 591, 517, 422, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					buttonGroup.add(radioButtonProok);
+					radioButtonProok.setText("Proof");
+					radioButtonProok.setFont(new java.awt.Font("Arial",1,14));
+					radioButtonProok.setForeground(new java.awt.Color(0,0,255));
+					radioButtonProok.setPreferredSize(new java.awt.Dimension(98, 28));
+					radioButtonProok.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							radioButtonProofActionPerformed(evt);
+						}
+					});
+				}
+				
+				
+				{
+					radioButtonFinal = new JRadioButton();
+					mainPanel.add(radioButtonFinal, new AnchorConstraint(254, 594, 345, 425, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					buttonGroup.add(radioButtonFinal);
+					radioButtonFinal.setText("Final");
+					radioButtonFinal.setSelected(false);
+					radioButtonFinal.setFont(new java.awt.Font("Arial",1,14));
+					radioButtonFinal.setForeground(new java.awt.Color(0,0,255));
+					radioButtonFinal.setPreferredSize(new java.awt.Dimension(98, 28));
+					radioButtonFinal.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							RadioButtonFinalActionPerformed(evt);
+						}
+					});
+				}
+				{
+					radioRework = new JRadioButton();
+					mainPanel.add(radioRework, new AnchorConstraint(521, 584, 579, 422, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					radioRework.setText("Rework");
+					radioRework.setFont(new java.awt.Font("Arial",1,14));
+					radioRework.setForeground(new java.awt.Color(0,0,255));
+					radioRework.setPreferredSize(new java.awt.Dimension(94, 18));
+					buttonGroup.add(radioRework);
+					radioRework.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							radioReworkActionPerformed(evt);
+						}
+					});
+				}
+				AppUtility.centerFrame(this);
+				this.addWindowListener(new WindowAdapter() {
+					public void windowClosing(WindowEvent evt) {
+						exit();
+					}
+				});
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void exit() {
+		if(AppUtility.msgConfirm(this, "Do you want to exit ??") == JOptionPane.OK_OPTION) {
+			frmStep.setVisible(true);
+			this.dispose();
+		}
+	}
+	
+	//=======================================================================================================
+	
+	
+	public void setListUserByRole(int role){
+		try {
+			listUserByRole = new ArrayList<BeanUserWorking>();
+			listUserByRole = daoAssignUser.getListUserWorkingByRole(role);
+	    	this.userWorkListModel.removeAllElements() ;
+	    	for (BeanUserWorking beanUserWorking : listUserByRole) {
+	    		this.userWorkListModel.addElement(beanUserWorking.getUserid());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			AppUtility.msgError(this, "setListUserByRole : "  + e.toString());
+		}
+
+	}
+	
+	/**
+	 * get current selected role
+	 */
+	private void setCurentRole() {
+		if( this.radioButtonType.isSelected() ){
+			selectedRole = UserRole.TYPE ;
+		}
+		else if( this.radioButtonProok.isSelected() ){
+			selectedRole = UserRole.PROOF ;   
+		}
+		else if( this.radioRework.isSelected() ){
+			selectedRole = UserRole.REWORK ;   
+		}
+		else if( this.radioButtonClassify.isSelected() ){
+			selectedRole = UserRole.CLASSIFY ;  
+		}
+		else if( this.radioButtonAdmin.isSelected() ){
+			selectedRole = UserRole.ADMIN ;  
+		}
+		else if( this.radioButtonFinal.isSelected() ){
+			selectedRole = UserRole.FINAL ;  
+		}
+	}
+	
+	/** set selected user from Employees ListBox into Working User ListBox , also insert this user into table user_working **/
+	private void rightBnActionPerformed(ActionEvent evt) {
+		Object[] employeeName = this.employeesList.getSelectedValues() ;
+		int len = employeeName.length;
+		int i ;
+		try{
+			if( len < 1 ){
+				AppUtility.msgError(this, "Please select a employee !!");
+				return ;
+			}
+			for( i = 0 ; i<this.userWorkListModel.getSize() ; i++ ){
+				for( int j = 0; j< len ; j++ ){
+					 if( employeeName[j].toString().equals( (String)userWorkListModel.elementAt(i) ) ){
+						 AppUtility.msgError(this, "User name : " + employeeName[j].toString() + " have been set for this role ");
+						 return ; 
+					 }
+				}
+			}
+			setCurentRole();
+		    daoAssignUser.saveAssignRole( project.getProj_id() , employeeName  , selectedRole ) ;
+			for( i = 0; i < len ; i++  ){
+				this.userWorkListModel.addElement( employeeName[i].toString() ) ;
+			}
+		}
+		catch( Exception e ){
+			e.printStackTrace();
+			 AppUtility.msgError(this, "rightBnActionPerformed :"+e.toString());
+		}
+		
+	}
+	
+	
+	/** remove selected Working User from current Role of current project  , also remove one recods in table user_working **/
+	private void leftBnActionPerformed(ActionEvent evt) {
+		
+		Object[] selectedUserWorking = this.userWorkList.getSelectedValues() ;
+		int len = selectedUserWorking.length ;
+		try{
+	        if( len < 1 ){
+	        	AppUtility.msgInfo(this, "Please select a working user to remove .");
+				return ;
+			}
+			setCurentRole();
+		    daoAssignUser.deleteAssignRole( project.getProj_id() , selectedUserWorking  , selectedRole ) ;
+			for( int i = 0; i < len; i++ ){
+				this.userWorkListModel.removeElement( selectedUserWorking[i].toString() ) ;
+			}
+		}catch( Exception e ){
+			AppUtility.msgError(this, "DB Exception :"+e.toString());
+			return ; 
+		}
+	}
+	
+	/** click Radio button Admin **/
+	private void adminRBActionPerformed(ActionEvent evt) 
+	{
+        setListUserByRole(UserRole.ADMIN);
+	}
+	
+	/** click Radio button Classify **/
+	private void radioButtonClassifyActionPerformed(ActionEvent evt) 
+	{
+		setListUserByRole(UserRole.CLASSIFY );
+	}
+
+	
+	/** click Radio button Type  **/
+	private void radioButtonTypeActionPerformed(ActionEvent evt) 
+	{
+		setListUserByRole(UserRole.TYPE );
+	}
+
+	
+	/** click Radio button Proof  **/
+	private void radioButtonProofActionPerformed(ActionEvent evt) {
+		setListUserByRole(UserRole.PROOF );
+	}
+	
+	
+	private void RadioButtonFinalActionPerformed(ActionEvent evt) {
+		setListUserByRole(UserRole.FINAL);
+	}
+	
+	private void radioReworkActionPerformed(ActionEvent evt) {
+		setListUserByRole(UserRole.REWORK );
+	}
+
+}

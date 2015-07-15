@@ -1,0 +1,6 @@
+surname,lookup_surname,,0,surname
+given,lookup_given,,0,given
+prefix,lookup_given,,2,given
+suffix,lookup_surname,,1,surname
+birth_place_city,lookup_by_field,birth_place_city,0,field_value
+residence_place_city,lookup_by_field,residence_place_city,0,field_value

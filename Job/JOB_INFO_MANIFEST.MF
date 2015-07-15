@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.7.0_11 (Taluan - Sun Microsystems Inc.)
+Main-Class: com.digitexx.ancestry.job.info.ScheduleAncestryJobInfo
+Class-Path: lib/activation.jar lib/antlr.jar lib/aspriseOCR.jar lib/ba
+ lloontip-1.2.1.jar lib/barbecue-1.5-beta1.jar lib/bsh-2.0b4.jar lib/
+ CalendarTool.jar lib/cglib-nodep-2.1_3.jar lib/cglib-nodep.jar lib/Cl
+ assify_Telefone.jar lib/ClipboardInfo.jar lib/commons-collections.jar
+  lib/commons-lang.jar lib/commons-logging.jar lib/commons-net-1.4.1.j
+ ar lib/databaseConnection.jar lib/databaseInfo.jar lib/digitexx-creat
+ e-logger.jar lib/dom4j.jar lib/edtftpj-1.5.5.jar lib/ehcache-1.1.jar 
+ lib/ehcache.jar lib/ExportExcel.jar lib/FormatJtable.jar lib/FormatJt
+ ableCell.jar lib/gnujaxp.jar lib/hibernate3.jar lib/image_helper-1.0.
+ jar lib/itext-1.4.6.jar lib/jacob.jar lib/jai_codec.jar lib/jai_core.
+ jar lib/jai_imageio.jar lib/jai_windows-i586.jar lib/javamail.jar lib
+ /jcalendar-1.4.jar lib/jcom.jar lib/jdom.jar lib/jftp.jar lib/jid.jar
+  lib/jta.jar lib/jtds-1.2.1.jar lib/JTwain.jar lib/junit.jar lib/jxl.
+ jar lib/LibraryLookup.jar lib/limitJtextField.jar lib/log4j.jar lib/l
+ ooks-2.1.1.jar lib/lookupBox.jar lib/mail.jar lib/mlibwrapper_jai.jar
+  lib/mysql-connector-java-5.0.3-bin.jar lib/ocr.jar lib/OptionPane.ja
+ r lib/PDFRenderer.jar lib/poi-3.8-20120326.jar lib/poi-contrib-3.6-20
+ 091214.jar lib/poi-excelant-3.8-20120326.jar lib/poi-ooxml-3.8-201203
+ 26.jar lib/poi-ooxml-schemas-3.8-20120326.jar lib/poi-scratchpad-3.8-
+ 20120326.jar lib/postgresql-9.2-1002.jdbc4.jar lib/SendMessage.jar li
+ b/servlet.jar lib/sqlite-jdbc-3.7.2.jar lib/sqljdbc.jar lib/StaskBarL
+ ibrary.jar lib/swing-layout-1.0.jar lib/systray4j.jar lib/uk.co.mmsco
+ mputing.device.twain.jar lib/VietKeyInput.jar lib/quaqua.jar 
+ lib/quaqua-filechooser-only.jar lib/liquidlnf.jar
+X-COMMENT: Main-Class will be added automatically by build

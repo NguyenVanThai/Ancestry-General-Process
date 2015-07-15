@@ -1,0 +1,19 @@
+package com.digitexx.ancestry.conts;
+
+public class UserRole {
+
+	public static final byte ADMIN = 2;
+
+	public static final byte TYPE = 3;
+
+	public static final byte PROOF = 4;
+
+	public static final byte REWORK = 5;
+
+	public static final byte CLASSIFY = 12;
+
+	public static final byte FINAL = 14;
+	
+	public static final byte BACLKLIST = -1;
+
+}
